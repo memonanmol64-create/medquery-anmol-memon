@@ -503,7 +503,7 @@ function startQuizSession(topic, count, book = '') {
  * The Generation Engine - AI Integrated 
  */
 // IMPORTANT: Paste your free Gemini API key here to generate real questions for any topic
-const GEMINI_API_KEY = 'AIzaSyD_K5dM5PrNmFFnwB9wGDi-_SnkUo9_FxM';
+const GEMINI_API_KEY = 'AIzaSyCP6y8D7eXUkcuXmVpbcK7kKvpH0eoXuG0';
 
 async function generateQuestionsWithGemini(topic, book, count, offset) {
     if (!GEMINI_API_KEY) {
@@ -943,3 +943,4 @@ function updateScoreBoard() {
         }, 300);
     }
 }
+
