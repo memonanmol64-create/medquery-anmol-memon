@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedQuery AI | Master Your Medical Exams</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS (via CDN for rapid setup) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        medical: {
+                            blue: '#004A99',
+                            dark: '#003366',
+                            light: '#E6F0FA',
+                            teal: '#20B2AA',
+                            tealLight: '#E0F7FA',
+                            accent: '#F9A826'
+                        }
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 74, 153, 0.1)',
+                        'neumorphic': '10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body
+    class="bg-gray-50 text-gray-800 antialiased selection:bg-medical-teal selection:text-white font-sans flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 cursor-pointer">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-medical-blue to-medical-teal flex items-center justify-center text-white shadow-lg">
+                        <i class="fa-solid fa-staff-snake text-xl"></i>
+                    </div>
+                    <span class="font-heading font-bold text-2xl tracking-tight text-medical-dark">MedQuery <span
+                            class="text-medical-teal font-normal">AI</span></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features"
+                        class="text-gray-600 hover:text-medical-blue font-medium transition-colors">Features</a>
+                    <a href="#subjects"
+                        class="text-gray-600 hover:text-medical-blue font-medium transition-colors">Subjects</a>
+                    <a href="#quiz-board"
+                        class="text-gray-600 hover:text-medical-blue font-medium transition-colors">Practice</a>
+                    <button
+                        class="bg-medical-blue hover:bg-medical-dark text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        Sign In
+                    </button>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-600 hover:text-medical-blue focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex-grow flex items-center">
+        <!-- Background Elements -->
+        <div
+            class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-medical-tealLight opacity-50 blur-3xl z-0">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-medical-light opacity-60 blur-3xl z-0">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div
+                    class="inline-block mb-4 px-4 py-1.5 rounded-full bg-medical-light border border-medical-blue/20 text-medical-blue font-medium text-sm animate-fade-in-up">
+                    <i class="fa-solid fa-sparkles mr-2 text-medical-accent"></i> The Future of Medical Learning
+                </div>
+                <h1
+                    class="font-heading text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-tight tracking-tight mb-6 animate-fade-in-up animation-delay-100">
+                    Master Your <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-medical-blue to-medical-teal">Medical
+                        Exams</span>
+                </h1>
+                <p
+                    class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto animate-fade-in-up animation-delay-200">
+                    Generate highly-targeted Best Choice Questions (BCQs) instantly. Test your knowledge across anatomy,
+                    physiology, and clinical medicine.
+                </p>
+
+                <!-- Search Component -->
+                <div class="relative max-w-4xl mx-auto animate-fade-in-up animation-delay-300 group">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-medical-blue to-medical-teal rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <form id="search-form"
+                        class="relative flex flex-col md:flex-row items-center bg-white rounded-2xl p-2 shadow-xl border border-gray-100 transition-all focus-within:ring-2 focus-within:ring-medical-teal/50 gap-2">
+                        <div
+                            class="w-full flex items-center flex-1 border-b md:border-b-0 md:border-r border-gray-100 pb-2 md:pb-0 md:pr-2 mb-2 md:mb-0">
+                            <div class="pl-4 pr-3 text-medical-blue flex-shrink-0">
+                                <i class="fa-solid fa-magnifying-glass text-xl"></i>
+                            </div>
+                            <input type="text" id="topic-input"
+                                class="w-full py-4 px-2 text-lg text-gray-800 bg-transparent outline-none placeholder-gray-400 font-medium"
+                                placeholder="E.g., Heart Anatomy, Lower Limb..." autocomplete="off" required>
+                        </div>
+
+                        <div class="w-full flex items-center flex-1">
+                            <div class="pl-4 pr-3 text-medical-teal flex-shrink-0">
+                                <i class="fa-solid fa-book-medical text-xl"></i>
+                            </div>
+                            <input type="text" id="book-input"
+                                class="w-full py-4 px-2 text-lg text-gray-800 bg-transparent outline-none placeholder-gray-400 font-medium"
+                                placeholder="Ref Book (e.g., Gray's Anatomy)" autocomplete="off">
+                        </div>
+
+                        <div
+                            class="w-full md:w-auto flex items-center gap-2 border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-2">
+                            <div
+                                class="flex items-center bg-gray-50 rounded-xl px-4 py-2 flex-grow md:flex-grow-0 h-14 border border-gray-200 focus-within:border-medical-teal/50 transition-colors group/num">
+                                <i
+                                    class="fa-solid fa-hashtag text-gray-400 mr-2 group-focus-within/num:text-medical-teal transition-colors"></i>
+                                <input type="number" id="bcq-count-input"
+                                    class="w-16 bg-transparent outline-none text-lg font-bold text-gray-800 text-center custom-number"
+                                    value="5" min="1" max="50" required>
+                                <span class="text-sm font-medium text-gray-500 ml-1">BCQs</span>
+                            </div>
+
+                            <button type="submit"
+                                class="bg-medical-blue hover:bg-medical-dark text-white rounded-xl px-6 py-0 h-14 font-semibold text-lg transition-all shadow-md flex-shrink-0 flex items-center justify-center gap-2 group-hover:shadow-lg w-full md:w-auto">
+                                <span class="hidden md:inline">Generate</span>
+                                <i
+                                    class="fa-solid fa-arrow-right md:group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Search Suggestions Snippet -->
+                    <div class="mt-4 flex flex-wrap justify-center gap-2 text-sm text-gray-500">
+                        <span>Popular:</span>
+                        <button
+                            class="suggestion-btn hover:text-medical-teal transition-colors underline decoration-dotted underline-offset-4">Cardiac
+                            Cycle</button>,
+                        <button
+                            class="suggestion-btn hover:text-medical-teal transition-colors underline decoration-dotted underline-offset-4">Renal
+                            Physiology</button>,
+                        <button
+                            class="suggestion-btn hover:text-medical-teal transition-colors underline decoration-dotted underline-offset-4">Neuroanatomy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects Grid Section -->
+    <section id="subjects" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-4">Explore by Subject</h2>
+                <div class="w-20 h-1.5 bg-gradient-to-r from-medical-blue to-medical-teal rounded-full mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card subject-card rounded-3xl p-8 border border-white/40 shadow-glass hover:-translate-y-2 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                    data-subject="anatomy">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-medical-teal/10 rounded-full -mr-10 -mt-10 blur-2xl group-hover:bg-medical-teal/20 transition-all">
+                    </div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-medical-light flex items-center justify-center mb-6 text-medical-blue group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-bone text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-gray-900 mb-2">Anatomy</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">Skeletal, muscular, neuroanatomy, and regional
+                        structures.</p>
+                    <div
+                        class="text-medical-teal font-medium text-sm flex items-center group-hover:translate-x-1 transition-transform">
+                        Practice now <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card subject-card rounded-3xl p-8 border border-white/40 shadow-glass hover:-translate-y-2 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                    data-subject="physiology">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-medical-blue/10 rounded-full -mr-10 -mt-10 blur-2xl group-hover:bg-medical-blue/20 transition-all">
+                    </div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-6 text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-heart-pulse text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-gray-900 mb-2">Physiology</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">Cardiovascular, renal, respiratory, and
+                        endocrine systems.</p>
+                    <div
+                        class="text-medical-blue font-medium text-sm flex items-center group-hover:translate-x-1 transition-transform">
+                        Practice now <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card subject-card rounded-3xl p-8 border border-white/40 shadow-glass hover:-translate-y-2 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                    data-subject="biochemistry">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-purple-100 rounded-full -mr-10 -mt-10 blur-2xl group-hover:bg-purple-200 transition-all">
+                    </div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-purple-50 flex items-center justify-center mb-6 text-purple-500 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-dna text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-gray-900 mb-2">Biochemistry</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">Metabolic pathways, molecular biology, and
+                        genetics.</p>
+                    <div
+                        class="text-purple-500 font-medium text-sm flex items-center group-hover:translate-x-1 transition-transform">
+                        Practice now <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card subject-card rounded-3xl p-8 border border-white/40 shadow-glass hover:-translate-y-2 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                    data-subject="clinical">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-rose-100 rounded-full -mr-10 -mt-10 blur-2xl group-hover:bg-rose-200 transition-all">
+                    </div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-rose-50 flex items-center justify-center mb-6 text-rose-500 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-stethoscope text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-gray-900 mb-2">Clinical Medicine</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">Pathology, pharmacology, and internal medicine
+                        cases.</p>
+                    <div
+                        class="text-rose-500 font-medium text-sm flex items-center group-hover:translate-x-1 transition-transform">
+                        Practice now <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subject Dashboard (Hidden initially) -->
+    <section id="subject-dashboard" class="py-20 bg-gray-50 hidden relative min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <button id="back-to-home-btn"
+                class="mb-8 px-5 py-2 rounded-xl bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-medical-blue transition-colors text-sm font-medium shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </button>
+
+            <div
+                class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 mb-12 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="flex items-center gap-6">
+                    <div id="subject-icon-container"
+                        class="w-20 h-20 rounded-2xl flex items-center justify-center shadow-inner">
+                        <i id="subject-icon" class="fa-solid fa-bone text-4xl"></i>
+                    </div>
+                    <div>
+                        <h2 id="dashboard-subject-title" class="font-heading text-4xl font-bold text-gray-900 mb-2">
+                            Subject Name</h2>
+                        <p id="dashboard-subject-desc" class="text-gray-500 text-lg">Detailed description of the
+                            subject.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h3 class="font-heading text-2xl font-bold text-gray-900 mb-6">What would you like to practice today?
+                </h3>
+                <form id="dashboard-search-form"
+                    class="relative flex flex-col md:flex-row items-center bg-white rounded-2xl p-2 shadow-lg border border-gray-200 transition-all focus-within:ring-2 focus-within:ring-medical-teal/50 gap-2">
+                    <div
+                        class="w-full flex items-center flex-1 border-b md:border-b-0 md:border-r border-gray-100 pb-2 md:pb-0 md:pr-2 mb-2 md:mb-0">
+                        <div class="pl-4 pr-3 text-medical-blue flex-shrink-0">
+                            <i class="fa-solid fa-magnifying-glass text-xl"></i>
+                        </div>
+                        <input type="text" id="dashboard-topic-input"
+                            class="w-full py-4 px-2 text-lg text-gray-800 bg-transparent outline-none placeholder-gray-400 font-medium"
+                            placeholder="E.g., Heart Anatomy, Lower Limb..." autocomplete="off" required>
+                    </div>
+
+                    <div class="w-full flex items-center flex-1">
+                        <div class="pl-4 pr-3 text-medical-teal flex-shrink-0">
+                            <i class="fa-solid fa-book-medical text-xl"></i>
+                        </div>
+                        <input type="text" id="dashboard-book-input"
+                            class="w-full py-4 px-2 text-lg text-gray-800 bg-transparent outline-none placeholder-gray-400 font-medium"
+                            placeholder="Ref Book (e.g., Snells Anatomy)" autocomplete="off">
+                    </div>
+
+                    <div
+                        class="w-full md:w-auto flex items-center gap-2 border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-2">
+                        <div
+                            class="flex items-center bg-gray-50 rounded-xl px-4 py-2 flex-grow md:flex-grow-0 h-14 border border-gray-200 focus-within:border-medical-teal/50 transition-colors group/dnum">
+                            <i
+                                class="fa-solid fa-hashtag text-gray-400 mr-2 group-focus-within/dnum:text-medical-teal transition-colors"></i>
+                            <input type="number" id="dashboard-bcq-count-input"
+                                class="w-16 bg-transparent outline-none text-lg font-bold text-gray-800 text-center custom-number"
+                                value="5" min="1" max="50" required>
+                            <span class="text-sm font-medium text-gray-500 ml-1">BCQs</span>
+                        </div>
+
+                        <button type="submit"
+                            class="bg-medical-blue hover:bg-medical-dark text-white rounded-xl px-6 py-0 h-14 font-semibold text-lg transition-all shadow-md flex-shrink-0 flex items-center justify-center gap-2 w-full md:w-auto">
+                            <span>Generate</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="suggested-topics-container" class="mb-12 hidden">
+                <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Suggested Topics in <span
+                        id="suggested-topic-subject"></span></h4>
+                <div id="suggested-topics-list" class="flex flex-wrap gap-3">
+                    <!-- Topics injected here -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Dynamic Quiz Section (Hidden initially) -->
+    <section id="quiz-board" class="py-20 bg-white hidden relative min-h-[600px] border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div>
+                    <h2 class="font-heading text-3xl font-bold text-gray-900 flex items-center gap-3">
+                        <i class="fa-solid fa-layer-group text-medical-blue"></i>
+                        Topic: <span id="quiz-topic-title" class="text-medical-teal ml-1">...</span>
+                    </h2>
+                    <p class="text-gray-500 mt-1">Generated Infinite Best Choice Questions</p>
+                </div>
+            </div>
+
+            <!-- Global Progress Bar -->
+            <!-- We will hide the absolute progress bar for infinite mode or convert it to a score counter -->
+            <div
+                class="bg-gray-50 rounded-2xl p-4 mb-10 shadow-sm border border-gray-100 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-full bg-medical-light text-medical-blue flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500 uppercase font-bold tracking-wider">Session Score</div>
+                        <div class="font-heading font-bold text-xl text-gray-900"><span id="score-counter">0</span> /
+                            <span id="total-attempted">0</span> Correct
+                        </div>
+                    </div>
+                </div>
+                <div id="question-count-badge"
+                    class="px-4 py-2 bg-gradient-to-r from-medical-blue to-medical-teal text-white rounded-xl text-sm font-semibold shadow-md">
+                    Generated: <span id="total-generated">0</span>
+                </div>
+            </div>
+
+            <!-- Quiz Container -->
+            <div id="quiz-container" class="space-y-8 pb-10">
+                <!-- Questions will be dynamically injected here via JS -->
+            </div>
+
+            <!-- Generate More Button & Finish Button -->
+            <div id="generate-more-container" class="hidden text-center mt-12 pb-12 animate-fade-in-up space-x-4">
+                <button id="generate-more-btn"
+                    class="inline-flex px-8 py-4 bg-white border border-gray-200 text-medical-blue hover:text-white hover:bg-medical-dark shadow-sm hover:shadow-lg transition-all rounded-full font-bold text-lg items-center justify-center gap-3 group">
+                    <i class="fa-solid fa-arrows-rotate group-hover:rotate-180 transition-transform duration-500"></i>
+                    <span id="generate-more-text">Generate 5 More Questions</span>
+                </button>
+                <button id="finish-quiz-btn"
+                    class="hidden inline-flex px-8 py-4 bg-gradient-to-r from-medical-blue to-medical-teal text-white shadow-md hover:shadow-lg transition-all rounded-full font-bold text-lg items-center justify-center gap-3">
+                    <i class="fa-solid fa-flag-checkered"></i>
+                    <span>View Final Scorecard</span>
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="hidden flex-col items-center justify-center py-20">
+                <div
+                    class="w-16 h-16 border-4 border-medical-light border-t-medical-teal rounded-full animate-spin mb-6 shadow-lg">
+                </div>
+                <h3 class="font-heading text-xl font-bold text-gray-800 mb-2">Generating Dynamic Questions...</h3>
+                <p class="text-gray-500 text-sm animate-pulse">Our AI is analyzing the topic and crafting new scenarios.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Scorecard Screen (Hidden Initially) -->
+    <section id="scorecard-screen"
+        class="hidden py-24 bg-gray-50 flex-grow border-t border-gray-100 flex items-center justify-center min-h-[600px]">
+        <div class="max-w-xl w-full mx-auto px-4">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden animate-fade-in-up border border-gray-100">
+                <div class="bg-gradient-to-r from-medical-blue to-medical-teal p-8 text-center text-white relative">
+                    <div class="absolute inset-0 opacity-10"
+                        style="background-image: radial-gradient(circle at center, #fff 1px, transparent 1px); background-size: 10px 10px;">
+                    </div>
+                    <i class="fa-solid fa-award text-6xl mb-4 text-white/90 drop-shadow-md"></i>
+                    <h2 class="font-heading text-4xl font-bold mb-2 relative z-10">Quiz Completed!</h2>
+                    <p class="text-white/80 font-medium relative z-10">Here is your performance summary</p>
+                </div>
+
+                <div class="p-10 text-center text-gray-800">
+                    <div class="flex justify-center items-center gap-12 mb-8">
+                        <div>
+                            <div class="text-sm text-gray-500 uppercase font-bold tracking-wider mb-1">Score</div>
+                            <div class="text-3xl font-bold text-gray-900"><span id="score-correct"
+                                    class="text-medical-blue">0</span> / <span id="score-total">0</span></div>
+                        </div>
+                        <div class="h-16 w-px bg-gray-200"></div>
+                        <div>
+                            <div class="text-sm text-gray-500 uppercase font-bold tracking-wider mb-1">Accuracy</div>
+                            <div class="text-3xl font-bold text-medical-teal" id="score-percentage">0%</div>
+                        </div>
+                    </div>
+
+                    <div id="scorecard-message" class="text-lg font-medium mb-10 px-4">
+                        Reviewing specific details will help solidify your understanding.
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button id="btn-retry-quiz"
+                            class="flex-1 py-4 bg-medical-blue hover:bg-medical-dark text-white rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i> Retry Topic
+                        </button>
+                        <button id="btn-return-dashboard"
+                            class="flex-1 py-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-house-medical"></i> Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 text-white py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-gradient-to-br from-medical-blue to-medical-teal flex items-center justify-center text-white">
+                            <i class="fa-solid fa-staff-snake text-sm"></i>
+                        </div>
+                        <span class="font-heading font-bold text-xl tracking-tight">MedQuery <span
+                                class="text-medical-teal font-normal">AI</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-sm mb-6 leading-relaxed">
+                        The intelligent companion for medical students and professionals. Master concepts through highly
+                        targeted Best Choice Questions.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-200">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-medical-teal transition-colors">Question Bank</a></li>
+                        <li><a href="#" class="hover:text-medical-teal transition-colors">Study Guides</a></li>
+                        <li><a href="#" class="hover:text-medical-teal transition-colors">Flashcards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-gray-200">Legal</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-medical-teal transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-medical-teal transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-medical-teal transition-colors">Medical Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-10 pt-8 text-center text-xs text-gray-500">
+                &copy; 2026 MedQuery AI. All rights reserved. For educational purposes only.
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+
+</html>
